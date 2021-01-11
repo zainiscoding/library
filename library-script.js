@@ -7,29 +7,52 @@ const readButton = document.querySelector("#readButton");
 
 let libraryArr = [];
 
-function Library() { }
+//  Original code
+// function Book(title, author, pages, read) {
+//     (this.title = title),
+//         (this.author = "\n" + author),
+//         (this.pages = "\n" + pages + " pg"),
+//         (this.read = "\n" + read);
+// }
 
-function Book(title, author, pages, read) {
-    (this.title = title),
-        (this.author = "\n" + author),
-        (this.pages = "\n" + pages + " pg"),
+// Book.prototype.changeReadStatus = function () {
+//     //Changes the book at the OBJ level in the array
+//     if (this.read.includes("Read")) {
+//         this.read = this.read.replace("Read", "Unread");
+//     } else if (this.read.includes("Unread")) {
+//         this.read = this.read.replace("Unread", "Read");
+//     }
+//     libraryArr.splice(this, 1, this);
+// };
+
+// Book.prototype.addBookToLibArr = function () {
+//     libraryArr.push(this);
+// };
+
+//Class version
+class Book {
+
+    constructor(title, author, pages, read) {
+        (this.title = title);
+        (this.author = "\n" + author);
+        (this.pages = "\n" + pages + " pg");
         (this.read = "\n" + read);
-}
-
-Book.prototype.changeReadStatus = function () {
-    //Changes the book at the OBJ level in the array
-    if (this.read.includes("Read")) {
-        this.read = this.read.replace("Read", "Unread");
-    } else if (this.read.includes("Unread")) {
-        this.read = this.read.replace("Unread", "Read");
     }
-    libraryArr.splice(this, 1, this);
-};
 
-Book.prototype.addBookToLibArr = function () {
-    libraryArr.push(this);
-};
+    changeReadStatus() {
+        //Changes the book at the OBJ level in the array
+        if (this.read.includes("Read")) {
+            this.read = this.read.replace("Read", "Unread");
+        } else if (this.read.includes("Unread")) {
+            this.read = this.read.replace("Unread", "Read");
+        }
+        libraryArr.splice(this, 1, this);
+    };
 
+    addBookToLibArr() {
+        libraryArr.push(this);
+    };
+}
 
 
 const render = () => {

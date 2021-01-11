@@ -1,161 +1,159 @@
 html {
-    background: #FFF2D3;
+  background: #fff2d3;
 }
 
 main {
-    height: 100vh;
-    width: 100vw;
+  height: 100vh;
+  width: 100vw;
 }
 
 .titleText {
-    text-align: center;
-    font-size: calc((.4em + 3vmin) + (.4em + 3vmax));
-    margin-bottom: 1%;
-    padding-top: 1%;
-    color: #403735;
-    font-family: 'Dancing Script', cursive;
+  text-align: center;
+  font-size: calc((0.4em + 3vmin) + (0.4em + 3vmax));
+  margin-bottom: 1%;
+  padding-top: 1%;
+  color: #403735;
+  font-family: 'Dancing Script', cursive;
 }
 
 #btnContainer {
-    display: grid;
-    place-content: center;
+  display: grid;
+  place-content: center;
 }
 
 #newBookBtn {
-    font-size: calc((.1em + 1vmin) + (.1em + 1vmax));
-    margin-bottom: 20%;
-    background: #D3E0FF;
-    border: none;
-    border-radius: 4px;
-    color: #403735;
-    font-family: 'Raleway', sans-serif;
+  font-size: calc((0.1em + 1vmin) + (0.1em + 1vmax));
+  margin-bottom: 20%;
+  background: #d3e0ff;
+  border: none;
+  border-radius: 4px;
+  color: #403735;
+  font-family: 'Raleway', sans-serif;
 }
 
 #libraryContainer {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #library {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
-    white-space: pre-line;
-    width: 50%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+  white-space: pre-line;
+  width: 50%;
 }
 
 .book {
-    display: flex;
-    -ms-word-break: break-all;
-    word-break: break-all;
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    hyphens: auto;
-    flex-direction: column;
-    align-items: center;;
-    text-align: center;
-    justify-content: space-between;
-    color: #403735;
-    border: solid 3px #403735;
-    border-radius: 3px;
-    font-size: 2.5em;
-    font-family: 'Raleway', sans-serif;
-    padding-left: 20px;
-    padding-right: 20px;
-    background: #FFDCD3
+  display: flex;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  color: #403735;
+  border: solid 3px #403735;
+  border-radius: 3px;
+  font-size: 2.5em;
+  font-family: 'Raleway', sans-serif;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #ffdcd3;
 }
 
-.inputField{
-    font-size: 80%;
-    color: #403735;
-    border-radius: 4px;
-    border: none;
-    padding: 5px;
-    font-family: 'Raleway', sans-serif;
+.inputField {
+  font-size: 80%;
+  color: #403735;
+  border-radius: 4px;
+  border: none;
+  padding: 5px;
+  font-family: 'Raleway', sans-serif;
 }
 
-.inputFieldError{
-    border: 2px solid #FFA790;
-    font-size: 80%;
-    color: #403735;
-    padding: 5px;
-    font-family: 'Raleway', sans-serif;
-    
+.inputFieldError {
+  border: 2px solid #ffa790;
+  font-size: 80%;
+  color: #403735;
+  padding: 5px;
+  font-family: 'Raleway', sans-serif;
 }
 
-#readFieldCheckbox{
-transform: scale(2);
+#readFieldCheckbox {
+  transform: scale(2);
 }
-
 
 #libraryBookRemoveBtn {
-    margin-left: auto;
-    font-size: 0.7em;
-    border: none;
-    background: #D3E0FF;
-    color: #403735;
-    font-family: 'Raleway', sans-serif;
+  margin-left: auto;
+  font-size: 0.7em;
+  border: none;
+  background: #d3e0ff;
+  color: #403735;
+  font-family: 'Raleway', sans-serif;
 }
 
-.readButton{
-    font-size: 0.7em;
-    background: #D3E0FF;
-    border: none;
-    border-top: solid 1px #BEC8DF;
-    border-right: solid 1px #BEC8DF;
-    border-left: solid 1px #BEC8DF;
-    color: #403735;
-    font-family: 'Raleway', sans-serif;
+.readButton {
+  font-size: 0.7em;
+  background: #d3e0ff;
+  border: none;
+  border-top: solid 1px #bec8df;
+  border-right: solid 1px #bec8df;
+  border-left: solid 1px #bec8df;
+  color: #403735;
+  font-family: 'Raleway', sans-serif;
 }
 
 .newBookPopUp {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    justify-content: space-between;
-    background: #D3E0FF;
-    border-radius: 10px;
-    width: 30vw;
-    height: 60vh;
-    left: 34%;
-    top: 25%;
-    bottom: 25%;
-    /* right: 25%; */
-    padding: 10px;
-    font-size: calc((.2em + 1vmin) + (.2em + 1vmax));
-    color: #403735
-    font-family: 'Raleway', sans-serif;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  justify-content: space-between;
+  background: #d3e0ff;
+  border-radius: 10px;
+  width: 30vw;
+  height: 60vh;
+  left: 34%;
+  top: 25%;
+  bottom: 25%;
+  /* right: 25%; */
+  padding: 10px;
+  font-size: calc((0.2em + 1vmin) + (0.2em + 1vmax));
+  color: #403735;
+  font-family: 'Raleway', sans-serif;
 }
 
 .newBookPopUpHidden {
-    display: none;
+  display: none;
 }
 
-#popUpHideBtn{
-    display: flex;
-    width: 10%;
-    justify-content: center;
-    align-self: flex-end;
-    font-size: 1em;
-    padding-left: 10px;
-    padding-right: 10px;
-    background: #D3E0FF;
-    border: none;
-    border-radius: 4px;
-    color: #403735;
-    font-family: 'Raleway', sans-serif;
+#popUpHideBtn {
+  display: flex;
+  width: 10%;
+  justify-content: center;
+  align-self: flex-end;
+  font-size: 1em;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #d3e0ff;
+  border: none;
+  border-radius: 4px;
+  color: #403735;
+  font-family: 'Raleway', sans-serif;
 }
 
-#newBookSubmitBtn{
-    font-size: 0.8em;
-    background: #D3E0FF;
-    border: none;
-    border-radius: 4px;
-    color: #403735;
-    font-family: 'Raleway', sans-serif;
+#newBookSubmitBtn {
+  font-size: 0.8em;
+  background: #d3e0ff;
+  border: none;
+  border-radius: 4px;
+  color: #403735;
+  font-family: 'Raleway', sans-serif;
 }
