@@ -28,32 +28,18 @@ function loadBooks(user) {
       .collection('users')
       .doc(user.uid)
       .collection('library');
+
     //Start listening to the query.
     query.onSnapshot(
       (snapshot) => {
-        console.log(snapshot);
-        const books = [];
-        console.log(snapshot.docs);
-        //snapshot.docChanges() returns an empty array... Why?
         snapshot.docChanges().forEach((change) => {
-          console.log('Working');
-          books.push(change.doc.data());
-          // console.log(book);
-          // displayMessage(
-          //   change.doc.id,
-          //   message.timestamp,
-          //   message.name,
-          //   message.text,
-          //   message.profilePicUrl,
-          //   message.imageUrl
-          // );
-          // libraryArr.push(book);
-          // console.log(libraryArr);
+          libraryArr.push(change.doc.data());
+          console.log(libraryArr);
         });
-        console.log(books);
+        render();
       },
-      function (error) {
-        console.log('error:' + error);
+      (error) => {
+        console.log('Error:' + error);
       }
     );
   }
@@ -197,7 +183,7 @@ class Book {
   }
 }
 
-const render = () => {
+function render() {
   const library = document.createElement('div');
   library.setAttribute('id', 'library');
   libraryArr.forEach(function (book) {
@@ -231,9 +217,7 @@ const render = () => {
     library.append(libraryBook);
   });
   libraryContainer.append(library);
-};
-
-render();
+}
 
 signInButtonElement.addEventListener('click', signIn);
 signOutButtonElement.addEventListener('click', signOut);
@@ -334,7 +318,6 @@ newBookBtn.addEventListener('click', (e) => {
         newBookPopUp.querySelectorAll('*').forEach((n) => n.remove());
         newBookPopUp.setAttribute('class', 'newBookPopUpHidden');
         library.remove();
-        render();
       }
     });
   }
