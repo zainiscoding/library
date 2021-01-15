@@ -4,6 +4,7 @@ const newBookPopUp = document.querySelector('#newBookPopUp');
 const newBookSubmitBtn = document.querySelector('#newBookSubmitBtn');
 const book = document.querySelector('.book');
 const readButton = document.querySelector('#readButton');
+const library = document.querySelector('#library');
 
 let libraryArr = [];
 
@@ -32,9 +33,36 @@ function loadBooks(user) {
     //Start listening to the query.
     query.onSnapshot(
       (snapshot) => {
-        snapshot.forEach((doc) => {
-          libraryArr.push(doc.data());
-          console.log(libraryArr);
+        snapshot.docChanges().forEach((change) => {
+          const newBook = new Book(
+            change.doc.data().title,
+            change.doc.data().author,
+            change.doc.data().pages,
+            change.doc.data().read
+          );
+          if (change.type === 'added') {
+            libraryArr.push(newBook);
+          }
+          if (change.type === 'modified') {
+            libraryArr.forEach((book) => {
+              if (
+                book.title === newBook.title &&
+                book.author === newBook.author
+              ) {
+                libraryArr.splice(libraryArr.indexOf(book), 1, newBook);
+              }
+            });
+          }
+          if (change.type === 'removed') {
+            libraryArr.forEach((book) => {
+              if (
+                book.title === newBook.title &&
+                book.author === newBook.author
+              ) {
+                libraryArr.splice(libraryArr.indexOf(book), 1);
+              }
+            });
+          }
         });
         render();
       },
@@ -136,16 +164,27 @@ function saveBookToFirebase(book) {
     .catch(function (error) {
       console.error('Error writing new book to database', error);
     });
+}
 
-  // return firebase
-  //   .firestore()
-  //   .collection('users')
-  //   .doc(getUserId())
-  //   .collection('library')
-  //   .add(book)
-  //   .catch(function (error) {
-  //     console.error('Error writing new book to database', error);
-  //   });
+function updateBookOnFirebase(book) {
+  book.read.includes('Read')
+    ? firebase
+        .firestore()
+        .collection('users')
+        .doc(getUserId())
+        .collection('library')
+        .doc(book.title)
+        .update({ read: 'Unread' })
+    : firebase
+        .firestore()
+        .collection('users')
+        .doc(getUserId())
+        .collection('library')
+        .doc(book.title)
+        .update({ read: 'Read' })
+        .catch(function (error) {
+          console.error('Error updating the book on database', error);
+        });
 }
 
 function deleteBookFromFirebase(title) {
@@ -196,13 +235,7 @@ class Book {
   }
 
   changeReadStatus() {
-    //Changes the book at the OBJ level in the array
-    if (this.read.includes('Read')) {
-      this.read = this.read.replace('Read', 'Unread');
-    } else if (this.read.includes('Unread')) {
-      this.read = this.read.replace('Unread', 'Read');
-    }
-    libraryArr.splice(this, 1, this);
+    updateBookOnFirebase(this);
   }
 
   saveBook() {
@@ -211,19 +244,20 @@ class Book {
 }
 
 function render() {
-  const library = document.createElement('div');
-  library.setAttribute('id', 'library');
-  libraryArr.forEach(function (book) {
-    console.log(book);
+  while (library.firstChild) {
+    library.firstChild.remove();
+  }
+  libraryArr.forEach((book) => {
     const libraryBook = document.createElement('div');
     libraryBook.setAttribute('class', 'book');
 
     const libraryBookRemoveBtn = document.createElement('button');
     libraryBookRemoveBtn.addEventListener('click', (e) => {
-      libraryArr.splice(libraryArr.indexOf(book), 1);
+      // libraryArr.splice(libraryArr.indexOf(book), 1);
       libraryBook.remove();
       deleteBookFromFirebase(book.title);
     });
+
     libraryBookRemoveBtn.setAttribute('id', 'libraryBookRemoveBtn');
     libraryBookRemoveBtn.textContent = 'X';
     libraryBook.append(libraryBookRemoveBtn);
@@ -245,7 +279,6 @@ function render() {
     });
     library.append(libraryBook);
   });
-  libraryContainer.append(library);
 }
 
 signInButtonElement.addEventListener('click', signIn);
@@ -342,11 +375,9 @@ newBookBtn.addEventListener('click', (e) => {
           pagesField.value,
           readField.value
         );
-        console.log(pagesField.value);
         newBook.saveBook();
         newBookPopUp.querySelectorAll('*').forEach((n) => n.remove());
         newBookPopUp.setAttribute('class', 'newBookPopUpHidden');
-        library.remove();
       }
     });
   }

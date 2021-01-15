@@ -7,6 +7,32 @@ main {
   width: 100vw;
 }
 
+#user-name{
+  font-size: calc((0.1em + 0.6vmin) + (0.1em + 0.6vmax));
+  border: none;
+  border-radius: 4px;
+  color: #403735;
+  font-family: 'Raleway', sans-serif;
+}
+
+#sign-in {
+  font-size: calc((0.1em + 0.6vmin) + (0.1em + 0.6vmax));
+  background: #d3e0ff;
+  border: none;
+  border-radius: 4px;
+  color: #403735;
+  font-family: 'Raleway', sans-serif;
+}
+
+#sign-out {
+  font-size: calc((0.1em + 0.6vmin) + (0.1em + 0.6vmax));
+  background: #d3e0ff;
+  border: none;
+  border-radius: 4px;
+  color: #403735;
+  font-family: 'Raleway', sans-serif;
+}
+
 #user-container {
   position: absolute;
   display: flex;
