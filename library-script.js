@@ -125,15 +125,42 @@ function addSizeToGoogleProfilePic(url) {
 }
 
 function saveBookToFirebase(book) {
-  // Add a new message entry to the database.
+  // Add a new book entry to the database.
   return firebase
     .firestore()
     .collection('users')
     .doc(getUserId())
     .collection('library')
-    .add(book)
+    .doc(book.title)
+    .set(book)
     .catch(function (error) {
       console.error('Error writing new book to database', error);
+    });
+
+  // return firebase
+  //   .firestore()
+  //   .collection('users')
+  //   .doc(getUserId())
+  //   .collection('library')
+  //   .add(book)
+  //   .catch(function (error) {
+  //     console.error('Error writing new book to database', error);
+  //   });
+}
+
+function deleteBookFromFirebase(title) {
+  return firebase
+    .firestore()
+    .collection('users')
+    .doc(getUserId())
+    .collection('library')
+    .doc(title)
+    .delete()
+    .then(function () {
+      console.log('Document successfully deleted!');
+    })
+    .catch(function (error) {
+      console.error('Error removing document: ', error);
     });
 }
 
@@ -178,7 +205,7 @@ class Book {
     libraryArr.splice(this, 1, this);
   }
 
-  addBookToLibArr() {
+  saveBook() {
     saveBookToFirebase({ ...this });
   }
 }
@@ -187,13 +214,15 @@ function render() {
   const library = document.createElement('div');
   library.setAttribute('id', 'library');
   libraryArr.forEach(function (book) {
+    console.log(book);
     const libraryBook = document.createElement('div');
     libraryBook.setAttribute('class', 'book');
 
     const libraryBookRemoveBtn = document.createElement('button');
     libraryBookRemoveBtn.addEventListener('click', (e) => {
-      libraryArr.splice(libraryArr.indexOf(book), 1);
-      libraryBook.remove();
+      // libraryArr.splice(libraryArr.indexOf(book), 1);
+      // libraryBook.remove();
+      deleteBookFromFirebase(book.title);
     });
     libraryBookRemoveBtn.setAttribute('id', 'libraryBookRemoveBtn');
     libraryBookRemoveBtn.textContent = 'X';
@@ -314,7 +343,7 @@ newBookBtn.addEventListener('click', (e) => {
           readField.value
         );
         console.log(pagesField.value);
-        newBook.addBookToLibArr();
+        newBook.saveBook();
         newBookPopUp.querySelectorAll('*').forEach((n) => n.remove());
         newBookPopUp.setAttribute('class', 'newBookPopUpHidden');
         library.remove();
