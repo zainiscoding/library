@@ -32,8 +32,8 @@ function loadBooks(user) {
     //Start listening to the query.
     query.onSnapshot(
       (snapshot) => {
-        snapshot.docChanges().forEach((change) => {
-          libraryArr.push(change.doc.data());
+        snapshot.forEach((doc) => {
+          libraryArr.push(doc.data());
           console.log(libraryArr);
         });
         render();
@@ -220,8 +220,8 @@ function render() {
 
     const libraryBookRemoveBtn = document.createElement('button');
     libraryBookRemoveBtn.addEventListener('click', (e) => {
-      // libraryArr.splice(libraryArr.indexOf(book), 1);
-      // libraryBook.remove();
+      libraryArr.splice(libraryArr.indexOf(book), 1);
+      libraryBook.remove();
       deleteBookFromFirebase(book.title);
     });
     libraryBookRemoveBtn.setAttribute('id', 'libraryBookRemoveBtn');
